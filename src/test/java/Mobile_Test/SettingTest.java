@@ -6,15 +6,11 @@ public class SettingTest extends SettingsClass{
     @Test
     public void SettingsLogoutMasterUser() throws Exception {
 
-//        clickToolbarSettingsButton();
-
-//        clickSettingsMenuButton();
-
-//        clickLogoutMenuButton();
-
-//        clickLogoutMasterUserButton();
-
-//        clickLogoutMasterUserPopupButton();
+        clickToolbarSettingsButton();
+        clickSettingsMenuButton();
+        clickLogoutMenuButton();
+        clickLogoutMasterUserButton();
+        clickLogoutMasterUserPopupButton();
 
         LogoutValidation();
     }

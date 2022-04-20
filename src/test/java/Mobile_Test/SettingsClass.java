@@ -93,10 +93,10 @@ public class SettingsClass extends Utils {
     public void LogoutValidation() throws Exception {
         utils.wait(10);
         try {
-            MobileElement loginPageLocation;
-            loginPageLocation = utils.getElementByAccessibilityId(loginPageLabel_ai);
-            Boolean loginPage = loginPageLocation.isDisplayed();
-            if (loginPage == true) {
+            MobileElement loginPageLabel;
+            loginPageLabel = utils.getElementByAccessibilityId(loginPageLabel_ai);
+            if (loginPageLabel.getText().equals("Login")) {
+                System.out.println("the page is " + loginPageLabel.getText());
                 System.out.println("Logout success");
             } else {
                 System.out.println("Logout fail");

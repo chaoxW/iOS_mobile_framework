@@ -9,6 +9,14 @@ import org.testng.annotations.BeforeTest;
 
 public class BaseClass extends Utils{
 
+    HomePage homePage = new HomePage();
+    String homepageLabel_ai = homePage.HomepageLabel_AI;
+    String toolbarSettings_ai = homePage.ToolbarSettings_AI;
+    String settingsMenu_ai = homePage.SettingsMenu_AI;
+    String logoutMenu_ai = homePage.LogoutMenu_AI;
+    String logoutMasterUser_ai = homePage.LogoutMasterUser_AI;
+    String logoutMasterUserPopup_xpath = homePage.LogoutMasterUserPopup_XPATH;
+
     LoginPage loginPage = new LoginPage();
     String userNameInput_ai = loginPage.UserNameInput_AI;
     String passWordInput_ai = loginPage.PasswordInput_AI;
@@ -26,18 +34,12 @@ public class BaseClass extends Utils{
     String numberPad_login_xpath = loginPage.NumberPad_Login_Xpath;
     String numberPad_xpath = loginPage.NumberPad_Xpath;
     String numberPad_xpath1 = loginPage.NumberPad_Xpath1;
+    String loginPageLabel_ai = loginPage.LoginPageLabel_AI;
 
     UserData userData = new UserData();
     String userName = userData.UserName;
     String passWord = userData.Password;
     String registerName = userData.RegisterName;
-
-    HomePage homePage = new HomePage();
-    String toolbarSettings_ai = homePage.ToolbarSettings_AI;
-    String settingsMenu_ai = homePage.SettingsMenu_AI;
-    String logoutMenu_ai = homePage.LogoutMenu_AI;
-    String logoutMasterUser_ai = homePage.LogoutMasterUser_AI;
-    String logoutMasterUserPopup_xpath = homePage.LogoutMasterUserPopup_XPATH;
 
     Utils utils = new Utils();
 
@@ -117,10 +119,10 @@ public class BaseClass extends Utils{
             MobileElement demoUserButton;
             demoUserButton = utils.getElementByAccessibilityId(demoUserButton_ai);
             demoUserButton.click();
-            System.out.println("demo user button");
+            System.out.println("click demo user button");
         } catch (Exception exp) {
-            System.out.println("\ndemo user button ERROR " + exp.getCause());
-            System.out.println("\ndemo user button ERROR " + exp.getMessage());
+            System.out.println("\nclick demo user button ERROR " + exp.getCause());
+            System.out.println("\nclick demo user button ERROR " + exp.getMessage());
         }
     }
 
@@ -129,10 +131,10 @@ public class BaseClass extends Utils{
             MobileElement proceedButton;
             proceedButton = utils.getElementByAccessibilityId(proceedButton_ai);
             proceedButton.click();
-            System.out.println("proceed button");
+            System.out.println("click proceed button");
         } catch (Exception exp) {
-            System.out.println("\nproceed button ERROR " + exp.getCause());
-            System.out.println("\nproceed button ERROR " + exp.getMessage());
+            System.out.println("\nclick proceed button ERROR " + exp.getCause());
+            System.out.println("\nclick proceed button ERROR " + exp.getMessage());
         }
     }
 
@@ -163,30 +165,33 @@ public class BaseClass extends Utils{
 
     public void  clickPopupProceedButton(){
         try {
-            MobileElement popupProceedButton = utils.getElementByXpath(popupProceedButton_xpath);
+            MobileElement popupProceedButton;
+            popupProceedButton = utils.getElementByXpath(popupProceedButton_xpath);
             popupProceedButton.click();
-            System.out.println("popup Proceed Button");
+            System.out.println("click popup Proceed Button");
         } catch (Exception exp) {
-            System.out.println("\npopup Proceed Button ERROR " + exp.getCause());
-            System.out.println("\npopup Proceed Button ERROR " + exp.getMessage());
+            System.out.println("\nclick popup Proceed Button ERROR " + exp.getCause());
+            System.out.println("\nclick popup Proceed Button ERROR " + exp.getMessage());
         }
     }
 
     public void clickShopManagerButton() {
         try {
             utils.wait(10);
-            MobileElement shopManagerButton = utils.getElementByAccessibilityId(shopManagerButton_ai);
+            MobileElement shopManagerButton;
+            shopManagerButton = utils.getElementByAccessibilityId(shopManagerButton_ai);
             shopManagerButton.click();
-            System.out.println("shop manager button");
+            System.out.println("click shop manager button");
         } catch (Exception exp) {
-            System.out.println("\nshop manager button ERROR " + exp.getCause());
-            System.out.println("\nshop manager button ERROR " + exp.getMessage());
+            System.out.println("\nclick shop manager button ERROR " + exp.getCause());
+            System.out.println("\nclick shop manager button ERROR " + exp.getMessage());
         }
     }
 
     public void clickNumberPad(int number){
         try {
-            MobileElement numberSelect = utils.getElementByXpath(numberPad_xpath + number + numberPad_xpath1);
+            MobileElement numberSelect;
+            numberSelect = utils.getElementByXpath(numberPad_xpath + number + numberPad_xpath1);
             numberSelect.click();
             System.out.println("set Shop Manager Pin");
         } catch (Exception exp) {
@@ -197,7 +202,8 @@ public class BaseClass extends Utils{
 
     public void clickNumberPadLogin(){
         try {
-            MobileElement numberPadLoginButton = utils.getElementByXpath(numberPad_login_xpath);
+            MobileElement numberPadLoginButton;
+            numberPadLoginButton = utils.getElementByXpath(numberPad_login_xpath);
             numberPadLoginButton.click();
             System.out.println("click number pad login");
         } catch (Exception exp) {
@@ -208,13 +214,17 @@ public class BaseClass extends Utils{
 
     public void setShopManagerPin(){
         try {
-            MobileElement numberOne = utils.getElementByXpath(numberPad_one_xpath);
+            MobileElement numberOne;
+            numberOne = utils.getElementByXpath(numberPad_one_xpath);
             numberOne.click();
-            MobileElement numberTwo = utils.getElementByXpath(numberPad_two_xpath);
+            MobileElement numberTwo;
+            numberTwo = utils.getElementByXpath(numberPad_two_xpath);
             numberTwo.click();
-            MobileElement numberThree = utils.getElementByXpath(numberPad_three_xpath);
+            MobileElement numberThree;
+            numberThree = utils.getElementByXpath(numberPad_three_xpath);
             numberThree.click();
-            MobileElement numberFour = utils.getElementByXpath(numberPad_four_xpath);
+            MobileElement numberFour;
+            numberFour = utils.getElementByXpath(numberPad_four_xpath);
             numberFour.click();
             System.out.println("set Shop Manager Pin");
         } catch (Exception exp) {
@@ -223,6 +233,23 @@ public class BaseClass extends Utils{
         }
     }
 
+    public void LoginValidation() throws Exception {
+        utils.wait(10);
+        try {
+            MobileElement homePageLocation;
+            homePageLocation = utils.getElementByAccessibilityId(homepageLabel_ai);
+            Boolean homePage = homePageLocation.isDisplayed();
+            if (homePage == true) {
+                System.out.println("Login homepage validation success");
+            } else {
+                System.out.println("Login homepage validation fail");
+            }
+        } catch (Exception exp) {
+            System.out.println("\nLogin homepage validation fail ERROR " + exp.getCause());
+            System.out.println("\nLogin homepage validation fail ERROR " + exp.getMessage());
+        }
+
+    }
 
     public void hideKeyboard(){
         utils.hideKeyboard();
@@ -230,8 +257,9 @@ public class BaseClass extends Utils{
 
     public void clickToolbarSettingsButton() {
         try {
-            MobileElement loginButton = utils.getElementByAccessibilityId(toolbarSettings_ai);
-            loginButton.click();
+            MobileElement toolbarSettingsButton;
+            toolbarSettingsButton = utils.getElementByAccessibilityId(toolbarSettings_ai);
+            toolbarSettingsButton.click();
             System.out.println("click Toolbar Settings Button");
         } catch (Exception exp) {
             System.out.println("\nclick Toolbar Settings Button ERROR " + exp.getCause());
@@ -241,8 +269,9 @@ public class BaseClass extends Utils{
 
     public void clickSettingsMenuButton() {
         try {
-            MobileElement loginButton = utils.getElementByAccessibilityId(settingsMenu_ai);
-            loginButton.click();
+            MobileElement settingsMenuButton;
+            settingsMenuButton = utils.getElementByAccessibilityId(settingsMenu_ai);
+            settingsMenuButton.click();
             System.out.println("click Settings Menu Button");
         } catch (Exception exp) {
             System.out.println("\nclick Settings Menu Button ERROR " + exp.getCause());
@@ -252,8 +281,9 @@ public class BaseClass extends Utils{
 
     public void clickLogoutMenuButton() {
         try {
-            MobileElement loginButton = utils.getElementByAccessibilityId(logoutMenu_ai);
-            loginButton.click();
+            MobileElement logoutMenuButton;
+            logoutMenuButton = utils.getElementByAccessibilityId(logoutMenu_ai);
+            logoutMenuButton.click();
             System.out.println("click Logout Menu Button");
         } catch (Exception exp) {
             System.out.println("\nclick Logout Menu Button ERROR " + exp.getCause());
@@ -263,8 +293,9 @@ public class BaseClass extends Utils{
 
     public void clickLogoutMasterUserButton() {
         try {
-            MobileElement loginButton = utils.getElementByAccessibilityId(logoutMasterUser_ai);
-            loginButton.click();
+            MobileElement logoutMasterUserButton;
+            logoutMasterUserButton = utils.getElementByAccessibilityId(logoutMasterUser_ai);
+            logoutMasterUserButton.click();
             System.out.println("click Logout MasterUser Button");
         } catch (Exception exp) {
             System.out.println("\nclick Logout MasterUser Button ERROR " + exp.getCause());
@@ -274,12 +305,32 @@ public class BaseClass extends Utils{
 
     public void clickLogoutMasterUserPopupButton() {
         try {
-            MobileElement loginButton = utils.getElementByAccessibilityId(logoutMasterUserPopup_xpath);
-            loginButton.click();
+            MobileElement logoutMasterUserPopupButton;
+            logoutMasterUserPopupButton = utils.getElementByXpath(logoutMasterUserPopup_xpath);
+            logoutMasterUserPopupButton.click();
             System.out.println("click Logout MasterUser Popup Button");
         } catch (Exception exp) {
             System.out.println("\nclick Logout MasterUser Popup Button ERROR " + exp.getCause());
             System.out.println("\nclick Logout MasterUser Popup Button ERROR " + exp.getMessage());
         }
     }
+
+    public void LogoutValidation() throws Exception {
+        utils.wait(10);
+        try {
+            MobileElement loginPageLabel;
+            loginPageLabel = utils.getElementByAccessibilityId(loginPageLabel_ai);
+            if (loginPageLabel.getText().equals("Login")) {
+                System.out.println("the page is " + loginPageLabel.getText());
+                System.out.println("Logout validation success");
+            } else {
+                System.out.println("Logout validation fail");
+            }
+        } catch (Exception exp) {
+            System.out.println("\nLogout fail ERROR " + exp.getCause());
+            System.out.println("\nLogout fail ERROR " + exp.getMessage());
+        }
+
+    }
+
 }
