@@ -22,7 +22,7 @@ public class SettingsClass extends Utils {
 
     @BeforeTest
     public void setup() {
-        utils.setup();
+        utils.iPadSetup();
     }
 
 //    @AfterTest

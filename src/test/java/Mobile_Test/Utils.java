@@ -1,54 +1,28 @@
 package Mobile_Test;
 
-import Config.AppData;
-import Config.AppiumData;
-import Config.MobileData;
-import io.appium.java_client.MobileDriver;
+import Config.iPadDriver;
+import Config.iPadSimulatorDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
-import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
     IOSDriver driver;
 
-    MobileData mobileData = new MobileData();
-    String iPad_udid = mobileData.iPad_UDID;
-    String iPad_deviceName = mobileData.iPad_DeviceName;
-    String iPad_platformVersion = mobileData.iPad_PlatformVersion;
-    String iPad_platformName = mobileData.iPad_PlatformName;
+    iPadDriver iPadDriver = new iPadDriver();
 
-    AppData appData = new AppData();
-    String STGBundleId = appData.AppSTGBundleId;
-    AppiumData appiumData = new AppiumData();
-    String appiumUrl= appiumData.AppiumUrl;
-    String appiumAutomationName = appiumData.AppiumAutomationName;
+    iPadSimulatorDriver iPadSimulatorDriver = new iPadSimulatorDriver();
 
-    public void setup(){
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("platformName", iPad_platformName);
-        caps.setCapability("platformVersion", iPad_platformVersion);
-        caps.setCapability("deviceName", iPad_deviceName);
-        caps.setCapability(MobileCapabilityType.UDID,iPad_udid);
-        caps.setCapability("automationName",appiumAutomationName);
-        caps.setCapability("bundleId",STGBundleId);
+    public IOSDriver iPadSetup(){
+        driver = iPadDriver.iPadSetup();
+        return driver;
+    }
 
-        URL url = null;
-        try {
-            url = new URL(appiumUrl);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        driver = new IOSDriver(url, caps);
+    public IOSDriver iPadSimulatorSetup(){
+        driver = iPadSimulatorDriver.iPadSimulatorSetup();
+        return driver;
     }
 
     public void QuitDriver() {

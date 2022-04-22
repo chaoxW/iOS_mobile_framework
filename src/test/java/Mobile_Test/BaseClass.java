@@ -45,7 +45,7 @@ public class BaseClass extends Utils{
 
     @BeforeTest
     public void setup() {
-        utils.setup();
+        utils.iPadSetup();
     }
 
     @AfterTest
