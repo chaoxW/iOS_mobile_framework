@@ -2,6 +2,7 @@ package Mobile_Test;
 
 import Config.iPadDriver;
 import Config.iPadSimulatorDriver;
+import Config.iPadBrowserstackDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 
@@ -15,6 +16,8 @@ public class Utils {
 
     iPadSimulatorDriver iPadSimulatorDriver = new iPadSimulatorDriver();
 
+    iPadBrowserstackDriver iPadBrowserstackDriver = new iPadBrowserstackDriver();
+
     public IOSDriver iPadSetup(){
         driver = iPadDriver.iPadSetup();
         return driver;
@@ -22,6 +25,11 @@ public class Utils {
 
     public IOSDriver iPadSimulatorSetup(){
         driver = iPadSimulatorDriver.iPadSimulatorSetup();
+        return driver;
+    }
+
+    public IOSDriver iPadBrowserstackSetup(){
+        driver = iPadBrowserstackDriver.iPadBrowserstackSetup();
         return driver;
     }
 
@@ -63,6 +71,23 @@ public class Utils {
             System.out.println("getElementByIosClassChain ERROR is " + exp.getMessage());
         }
         return null;
+    }
+
+    public void acceptAlert() throws Exception{
+        int i=1;
+        do{
+            try {
+                driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+                String alertText = driver.switchTo().alert().getText();
+                if (alertText != null) {
+                    driver.switchTo().alert().accept();
+                    System.out.println("Accept alert " + alertText);
+                }
+            } catch (Exception exp) {
+                System.out.println("No alert shown Alert is " + exp.getCause());
+            }
+            i++;
+        }while(i<=3);
     }
 
     public void hideKeyboard(){

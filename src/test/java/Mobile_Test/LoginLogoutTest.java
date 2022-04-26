@@ -5,6 +5,7 @@ public class LoginLogoutTest extends BaseClass{
 
     @Test
     public void LoginLogout() throws Exception {
+        acceptAlert();
         // clear username and password if login before
         clearUsername();
         clearPassword();

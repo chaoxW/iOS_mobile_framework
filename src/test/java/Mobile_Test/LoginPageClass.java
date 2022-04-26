@@ -41,11 +41,18 @@ public class LoginPageClass extends Utils{
     public void setup() {
         utils.iPadSetup();
     }
-
-//    @AfterTest
-//    public void teardown() {
-//        utils.QuitDriver();
+//    public void setup() {
+//        utils.iPadBrowserstackSetup();
 //    }
+
+    @AfterTest
+    public void teardown() {
+        utils.QuitDriver();
+    }
+
+    public void acceptAlert() throws Exception {
+        utils.acceptAlert();
+    }
 
     public void clearUsername() {
         try {

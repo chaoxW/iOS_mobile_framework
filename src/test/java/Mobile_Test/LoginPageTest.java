@@ -7,6 +7,7 @@ public class LoginPageTest extends LoginPageClass{
     @Test
     public void LoginMasterUser() throws Exception {
         // clear username and password if login before
+        acceptAlert();
         clearUsername();
         clearPassword();
         // insert username

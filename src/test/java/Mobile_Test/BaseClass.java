@@ -44,13 +44,20 @@ public class BaseClass extends Utils{
     Utils utils = new Utils();
 
     @BeforeTest
+//    public void setup() {
+//        utils.iPadSetup();
+//    }
     public void setup() {
-        utils.iPadSetup();
+        utils.iPadBrowserstackSetup();
     }
 
     @AfterTest
     public void teardown() {
         utils.QuitDriver();
+    }
+
+    public void acceptAlert() throws Exception {
+            utils.acceptAlert();
     }
 
     public void clearUsername() {
