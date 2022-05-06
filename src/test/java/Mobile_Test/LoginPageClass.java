@@ -20,7 +20,7 @@ public class LoginPageClass extends Utils{
     String proceedButton_ai = loginPage.ProceedButton_AI;
     String searchRegistersInput_ai = loginPage.SearchRegistersInput_AI;
     String registerUserButton_ai = loginPage.RegisterUserButton_AI;
-    String popupProceedButton_xpath = loginPage.PopupProceedButton_Xpath;
+    String popupProceedButton_ai = loginPage.PopupProceedButton_AI;
     String shopManagerButton_ai = loginPage.ShopManager_AI;
     String numberPad_one_xpath = loginPage.NumberPad_One_Xpath;
     String numberPad_two_xpath = loginPage.NumberPad_Two_Xpath;
@@ -29,26 +29,31 @@ public class LoginPageClass extends Utils{
     String numberPad_login_xpath = loginPage.NumberPad_Login_Xpath;
     String numberPad_xpath = loginPage.NumberPad_Xpath;
     String numberPad_xpath1 = loginPage.NumberPad_Xpath1;
+    String qaManualTestButton_ai = loginPage.QAManualTestButton_AI;
+    String qaRegisterUserButton_ai = loginPage.QARegisterUserButton_AI;
+    String qaShopOwnerButton_ai = loginPage.QAShopOwner_AI;
 
     UserData userData = new UserData();
     String userName = userData.UserName;
     String passWord = userData.Password;
     String registerName = userData.RegisterName;
+    String qaTestUserName = userData.QATestUserName;
+    String qaTestPassword = userData.QATestPassword;
+
 
     Utils utils = new Utils();
 
     @BeforeTest
     public void setup() {
         utils.iPadSetup();
-    }
-//    public void setup() {
 //        utils.iPadBrowserstackSetup();
-//    }
-
-    @AfterTest
-    public void teardown() {
-        utils.QuitDriver();
     }
+
+
+//    @AfterTest
+//    public void teardown() {
+//        utils.QuitDriver();
+//    }
 
     public void acceptAlert() throws Exception {
         utils.acceptAlert();
@@ -167,7 +172,7 @@ public class LoginPageClass extends Utils{
     public void  clickPopupProceedButton(){
         try {
             MobileElement popupProceedButton;
-            popupProceedButton = utils.getElementByXpath(popupProceedButton_xpath);
+            popupProceedButton = utils.getElementByAccessibilityId(popupProceedButton_ai);
             popupProceedButton.click();
             System.out.println("click popup Proceed Button");
         } catch (Exception exp) {
@@ -194,7 +199,7 @@ public class LoginPageClass extends Utils{
             MobileElement numberSelect;
             numberSelect = utils.getElementByXpath(numberPad_xpath + number + numberPad_xpath1);
             numberSelect.click();
-            System.out.println("set Shop Manager Pin");
+            System.out.println("set Shop Manager Pin " + number);
         } catch (Exception exp) {
             System.out.println("\nset Shop Manager Pin ERROR " + exp.getCause());
             System.out.println("\nset Shop Manager Pin ERROR " + exp.getMessage());
@@ -254,5 +259,120 @@ public class LoginPageClass extends Utils{
 
     public void hideKeyboard(){
         utils.hideKeyboard();
+    }
+
+    public void insertQATestName() {
+        try {
+            MobileElement userNameInput;
+            userNameInput = utils.getElementByAccessibilityId(userNameInput_ai);
+            userNameInput.sendKeys(qaTestUserName);
+            System.out.println("insert username Input with " + qaTestUserName);
+        } catch (Exception exp) {
+            System.out.println("\ninsert username Input ERROR " + exp.getCause());
+            System.out.println("\ninsert username Input ERROR " + exp.getMessage());
+        }
+    }
+
+    public void insertQATestPassword() {
+        try {
+            MobileElement userNameInput;
+            userNameInput = utils.getElementByAccessibilityId(passWordInput_ai);
+            userNameInput.sendKeys(qaTestPassword);
+            System.out.println("insert password Input with " + qaTestPassword);
+        } catch (Exception exp) {
+            System.out.println("\ninsert password Input ERROR " + exp.getCause());
+            System.out.println("\ninsert password Input ERROR " + exp.getMessage());
+        }
+    }
+
+    public void clickQAManualTestButton() {
+        try {
+            utils.wait(10);
+            MobileElement demoUserButton;
+            demoUserButton = utils.getElementByAccessibilityId(qaManualTestButton_ai);
+            demoUserButton.click();
+            System.out.println("click QA Manual Test button");
+        } catch (Exception exp) {
+            System.out.println("\nclick demo user button ERROR " + exp.getCause());
+            System.out.println("\nclick demo user button ERROR " + exp.getMessage());
+        }
+    }
+
+    public void clickQARegisterUser() {
+        try {
+            MobileElement registerUserButton;
+            registerUserButton = utils.getElementByAccessibilityId(qaRegisterUserButton_ai);
+            registerUserButton.click();
+            System.out.println("click Register User Register2 button");
+        } catch (Exception exp) {
+            System.out.println("\nclick Register User button ERROR " + exp.getCause());
+            System.out.println("\nclick Register User button ERROR " + exp.getMessage());
+        }
+    }
+
+    public void clickQAShopOwnerButton() {
+        try {
+            utils.wait(10);
+            MobileElement shopManagerButton;
+            shopManagerButton = utils.getElementByAccessibilityId(qaShopOwnerButton_ai);
+            shopManagerButton.click();
+            System.out.println("click QA shop owner button");
+        } catch (Exception exp) {
+            System.out.println("\nclick QA shop owner button ERROR " + exp.getCause());
+            System.out.println("\nclick QA shop owner button ERROR " + exp.getMessage());
+        }
+    }
+
+    public void loginQAUser() {
+        try {
+            clearUsername();
+            clearPassword();
+            insertQATestName();
+            insertQATestPassword();
+            clickLoginButton();
+            clickQAManualTestButton();
+            clickProceedButton();
+            clickQARegisterUser();
+            clickProceedButton();
+            clickPopupProceedButton();
+            clickQAShopOwnerButton();
+            clickNumberPad(1);
+            clickNumberPad(2);
+            clickNumberPad(3);
+            clickNumberPad(4);
+            clickNumberPadLogin();
+            LoginValidation();
+        } catch (Exception exp) {
+            System.out.println("\nLogin QA user ERROR " + exp.getCause());
+            System.out.println("\nLogin QA user ERROR " + exp.getMessage());
+        }
+    }
+
+    public void loginDemoUser() {
+        try {
+            clearUsername();
+            clearPassword();
+            insertDemoUsername();
+            insertDemoUserPassword();
+            clickLoginButton();
+            clickDemoUserButton();
+            clickProceedButton();
+            setSearchRegisterUser();
+            hideKeyboard();
+            clickRegisterUser();
+            clickProceedButton();
+            clickPopupProceedButton();
+            clickShopManagerButton();
+            setShopManagerPin();
+            clickNumberPad(1);
+            clickNumberPad(2);
+            clickNumberPad(3);
+            clickNumberPad(4);
+            clickNumberPadLogin();
+            LoginValidation();
+        } catch (Exception exp) {
+            System.out.println("\nLogin QA user ERROR " + exp.getCause());
+            System.out.println("\nLogin QA user ERROR " + exp.getMessage());
+        }
     }
 }

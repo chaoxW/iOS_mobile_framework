@@ -3,6 +3,7 @@ package Mobile_Test;
 import io.appium.java_client.MobileElement;
 import Pages.HomePage;
 import Pages.LoginPage;
+import Pages.SettingPage;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -13,16 +14,19 @@ public class SettingsClass extends Utils {
 
     HomePage homePage = new HomePage();
     String toolbarSettings_ai = homePage.ToolbarSettings_AI;
-    String settingsMenu_ai = homePage.SettingsMenu_AI;
-    String logoutMenu_ai = homePage.LogoutMenu_AI;
-    String logoutMasterUser_ai = homePage.LogoutMasterUser_AI;
-    String logoutMasterUserPopup_xpath = homePage.LogoutMasterUserPopup_XPATH;
+
+    SettingPage settingPage = new SettingPage();
+    String settingsMenu_ai = settingPage.SettingsMenu_AI;
+    String logoutMenu_ai = settingPage.LogoutMenu_AI;
+    String logoutMasterUser_ai = settingPage.LogoutMasterUser_AI;
+    String logoutMasterUserPopup_xpath = settingPage.LogoutMasterUserPopup_XPATH;
 
     Utils utils = new Utils();
 
     @BeforeTest
     public void setup() {
         utils.iPadSetup();
+//        utils.iPadBrowserstackSetup();
     }
 
 //    @AfterTest
@@ -105,6 +109,19 @@ public class SettingsClass extends Utils {
             System.out.println("\nLogout fail ERROR " + exp.getCause());
             System.out.println("\nLogout fail ERROR " + exp.getMessage());
         }
+    }
 
+    public void logoutMasterUser() {
+        try {
+            clickToolbarSettingsButton();
+            clickSettingsMenuButton();
+            clickLogoutMenuButton();
+            clickLogoutMasterUserButton();
+            clickLogoutMasterUserPopupButton();
+            LogoutValidation();
+        } catch (Exception exp) {
+            System.out.println("\nclick Logout MasterUser Popup Button ERROR " + exp.getCause());
+            System.out.println("\nclick Logout MasterUser Popup Button ERROR " + exp.getMessage());
+        }
     }
 }

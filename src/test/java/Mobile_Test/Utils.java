@@ -6,6 +6,7 @@ import Config.iPadBrowserstackDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
@@ -20,21 +21,25 @@ public class Utils {
 
     public IOSDriver iPadSetup(){
         driver = iPadDriver.iPadSetup();
+        System.out.println("Set iPad Device Driver");
         return driver;
     }
 
     public IOSDriver iPadSimulatorSetup(){
         driver = iPadSimulatorDriver.iPadSimulatorSetup();
+        System.out.println("Set iPad Simulator Driver");
         return driver;
     }
 
     public IOSDriver iPadBrowserstackSetup(){
         driver = iPadBrowserstackDriver.iPadBrowserstackSetup();
+        System.out.println("Set iPad Browserstack Driver");
         return driver;
     }
 
     public void QuitDriver() {
         driver.quit();
+        System.out.println("Quit Driver");
     }
 
     public MobileElement getElementByAccessibilityId(String id) throws Exception {
@@ -57,6 +62,18 @@ public class Utils {
         } catch (Exception exp) {
             System.out.println("getElementByXpath ERROR is " + exp.getCause());
             System.out.println("getElementByXpath ERROR is " + exp.getMessage());
+        }
+        return null;
+    }
+
+    public List<MobileElement> getElementsByXpath(String id) throws Exception {
+        try {
+            List<MobileElement> elements;
+            elements = (List<MobileElement>) driver.findElementsByXPath(id);
+            return elements;
+        } catch (Exception exp) {
+            System.out.println("getElementsByXpath ERROR is " + exp.getCause());
+            System.out.println("getElementsByXpath ERROR is " + exp.getMessage());
         }
         return null;
     }
@@ -97,4 +114,24 @@ public class Utils {
     public void wait(int seconds){
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
+
+    public void log(String str){
+        System.out.println(str);
+    }
+    public void testSuiteStartLog(){
+        System.out.println("*****************Test Suite Start*****************\n");
+    }
+
+    public void testSuiteEndLog(){
+        System.out.println("\n*****************Test Suite End*****************\n");
+    }
+
+    public void testStartLog(String str){
+        System.out.println("**************Test " + str + " Start**************\n");
+    }
+
+    public void testEndLog(String str){
+        System.out.println("\n**************Test " + str + " End**************\n");
+    }
+
 }
