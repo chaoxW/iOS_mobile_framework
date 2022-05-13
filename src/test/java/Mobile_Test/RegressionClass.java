@@ -66,17 +66,27 @@ public class RegressionClass extends Utils{
     String menuListListView_xpath = orderPage.MenuListListView_XPATH;
     String gridViewButton_ai = orderPage.GridViewButton_AI;
     String listViewButton_ai = orderPage.ListViewButton_AI;
+    String categoriesCollectionView_xpath = orderPage.CategoriesCollectionGridView_XPATH;
+    String categoriesCollectionListView_xpath = orderPage.CategoriesCollectionListView_XPATH;
+    String productPlusButton_ai = orderPage.ProductPlusButton_AI;
+    String productMinusButton_ai = orderPage.ProductMinusButton_AI;
+    String productsListPopup_xpath = orderPage.ProductsListPopup_XPATH;
+    String footerViewText_xpath = orderPage.FooterViewText_XPATH;
 
-    public String[] arrMenu;
-    public String[] arrBill;
-
+    String[] CategoriesCollectionGridViewList;
+    String[] CategoriesCollectionListViewList;
+    String[] MenuListGridViewList;
+    String[] MenuListListViewList;
+    String[] TableBillList;
+    String[] FoodListPopup;
+    String FooterViewText;
 
     Utils utils = new Utils();
 
     @BeforeTest
     public void setup() {
-//        utils.iPadSetup();
-        utils.iPadBrowserstackSetup();
+        utils.iPadSetup();
+//        utils.iPadBrowserstackSetup();
         utils.testSuiteStartLog();
     }
 
@@ -202,6 +212,7 @@ public class RegressionClass extends Utils{
 
     public void clickProceedButton() {
         try {
+            utils.wait(10);
             MobileElement proceedButton;
             proceedButton = utils.getElementByAccessibilityId(proceedButton_ai);
             proceedButton.click();
@@ -238,7 +249,7 @@ public class RegressionClass extends Utils{
     }
 
     public void clickQARegisterUser() {
-        utils.wait(60);
+        utils.wait(200);
         try {
             MobileElement registerUserButton;
             registerUserButton = utils.getElementByAccessibilityId(qaRegisterUserButton_ai);
@@ -505,29 +516,43 @@ public class RegressionClass extends Utils{
         }
     }
 //↧↧↧********************************** table class *****************************************↧↧↧
-public void checkTable(int num) {
-    try {
-        MobileElement tableNumberValidation;
-        tableNumberValidation = utils.getElementByAccessibilityId(num+tableVerification_ai);
-        if (tableNumberValidation.isDisplayed()) {
-            System.out.println("table correctly selected " + num + tableVerification_ai);
+
+    public void checkTable(int num) {
+        try {
+            MobileElement tableNumberValidation;
+            tableNumberValidation = utils.getElementByAccessibilityId(num+tableVerification_ai);
+            if (tableNumberValidation.isDisplayed()) {
+                System.out.println("table correctly selected " + num + tableVerification_ai);
+            }
+        } catch (Exception exp) {
+            System.out.println("\ncheck table ERROR " + exp.getCause());
+            System.out.println("\ncheck table ERROR " + exp.getMessage());
         }
-    } catch (Exception exp) {
-        System.out.println("\ncheck table ERROR " + exp.getCause());
-        System.out.println("\ncheck table ERROR " + exp.getMessage());
     }
-}
 
     public void selectTable(int tableNumber) {
-        utils.wait(500);
+        utils.wait(2000);
         try {
             MobileElement table;
             table = utils.getElementByAccessibilityId(Integer.toString(tableNumber));
             table.click();
             System.out.println("select table " + tableNumber);
         } catch (Exception exp) {
-            System.out.println("\nselect table " + tableNumber + " ERROR " + exp.getCause());
-            System.out.println("\nselect table " + tableNumber + " ERROR " + exp.getMessage());
+            System.out.println("\nselect table" + tableNumber + " ERROR " + exp.getCause());
+            System.out.println("\nselect table" + tableNumber + " ERROR " + exp.getMessage());
+        }
+    }
+
+    public void selectCategories(String category) {
+        utils.wait(100);
+        try {
+            MobileElement table;
+            table = utils.getElementByAccessibilityId(category);
+            table.click();
+            System.out.println("select category " + category);
+        } catch (Exception exp) {
+            System.out.println("\nselect category" + category + " ERROR " + exp.getCause());
+            System.out.println("\nselect category" + category + " ERROR " + exp.getMessage());
         }
     }
 
@@ -581,36 +606,35 @@ public void checkTable(int num) {
         }
     }
 
-    public String[] getTableBillList() {
+    public void clickProductPlusButton() {
         try {
-            utils.wait(5);
-            List<MobileElement> billList;
-            billList = (List) utils.getElementsByXpath(billList_xpath);
-            arrBill = new String[billList.size()];
-            System.out.println("There are " + billList.size() + " items on the bill");
-            int itemIndex = 0;
-            for (MobileElement bill : billList) {
-                String itemName = bill.getText();
-                System.out.println("There is " + itemName + " on the bill");
-                arrBill[itemIndex] = itemName;
-                itemIndex++;
-            }
-            System.out.println("Table bill list contains " + Arrays.toString(arrBill));
-            return arrBill;
+            MobileElement plusButton;
+            plusButton = utils.getElementByAccessibilityId(productPlusButton_ai);
+            plusButton.click();
+            System.out.println("click product plus button");
         } catch (Exception exp) {
-            System.out.println("\nGet table bill list ERROR " + exp.getCause());
-            System.out.println("\nGet table bill list ERROR " + exp.getMessage());
+            System.out.println("\nclick product plus button ERROR " + exp.getCause());
+            System.out.println("\nclick product plus button ERROR " + exp.getMessage());
         }
-        return null;
+    }
+
+    public void clickProductMinusButton() {
+        try {
+            MobileElement minusButton;
+            minusButton = utils.getElementByAccessibilityId(productMinusButton_ai);
+            minusButton.click();
+            System.out.println("click product minus button");
+        } catch (Exception exp) {
+            System.out.println("\nclick product minus button ERROR " + exp.getCause());
+            System.out.println("\nclick product minus button ERROR " + exp.getMessage());
+        }
     }
 
     public void checkTableStatus(){
-        utils.wait(5);
+        utils.wait(3);
         try {
-//            utils.wait(5);
-            List<MobileElement> billList;
-            billList = (List) utils.getElementsByXpath(billList_xpath);
-            if (billList.size() == 0) {
+            getFooterViewText();
+            if (FooterViewText.contains("0,00")){
                 System.out.println("The table bill is empty");
             }else {
                 getTableBillList();
@@ -631,6 +655,19 @@ public void checkTable(int num) {
         } catch (Exception exp) {
             System.out.println("\norder coke ERROR " + exp.getCause());
             System.out.println("\norder coke ERROR " + exp.getMessage());
+        }
+    }
+
+    public void addFoodToTable(String foodName) {
+        utils.wait(1);
+        try {
+            MobileElement coke;
+            coke = utils.getElementByAccessibilityId(foodName);
+            coke.click();
+            System.out.println("order " + foodName);
+        } catch (Exception exp) {
+            System.out.println("\norder food ERROR " + exp.getCause());
+            System.out.println("\norder food ERROR " + exp.getMessage());
         }
     }
 
@@ -659,12 +696,9 @@ public void checkTable(int num) {
     }
 
     public void clearTable() {
-        utils.wait(5);
         try {
-//            utils.wait(5);
-            List<MobileElement> billList;
-            billList = (List) utils.getElementsByXpath(billList_xpath);
-            if (billList.size() == 0){
+            getFooterViewText();
+            if (FooterViewText.contains("0,00")){
                 System.out.println("The table bill is empty");
                 clickBackButton();
             }else {
@@ -686,91 +720,121 @@ public void checkTable(int num) {
         clearTable();
     }
 
-    public String[] getMenuListGridView() {
-        try {
-            utils.wait(5);
-            List<MobileElement> menuList;
-            menuList = (List) utils.getElementsByXpath(menuListGridView_xpath);
-            arrMenu = new String[menuList.size()];
-            System.out.println("There are " + menuList.size() + " items from the menu");
-            int itemIndex = 0;
-            for (MobileElement menu : menuList) {
-                String itemName = menu.getText();
-                System.out.println("There is " + itemName);
-                arrMenu[itemIndex] = itemName;
-                itemIndex++;
-            }
-            System.out.println("Menu contains " + Arrays.toString(arrMenu));
-            return arrMenu;
-        } catch (Exception e) {
-            System.out.println("\nMenu list ERROR " + e.getCause());
-            System.out.println("\nMenu list ERROR " + e.getMessage());
-        }
-        return null;
+    public void getProductsListFromPopup() {
+        FoodListPopup = utils.getProductsList(productsListPopup_xpath, "Food list from popup");
     }
 
-    public String[] getMenuListListView() {
-        try {
-            utils.wait(5);
-            List<MobileElement> menuList;
-            menuList = (List) utils.getElementsByXpath(menuListListView_xpath);
-            arrMenu = new String[menuList.size()];
-            System.out.println("There are " + menuList.size() + " items from the menu");
-            int itemIndex = 0;
-            for (MobileElement menu : menuList) {
-                String itemName = menu.getText();
-                System.out.println("There is " + itemName);
-                arrMenu[itemIndex] = itemName;
-                itemIndex++;
-            }
-            System.out.println("Menu contains " + Arrays.toString(arrMenu));
-            return arrMenu;
-        } catch (Exception e) {
-            System.out.println("\nMenu list ERROR " + e.getCause());
-            System.out.println("\nMenu list ERROR " + e.getMessage());
-        }
-        return null;
+    public void getCategoriesCollectionGridView() {
+        CategoriesCollectionGridViewList = utils.getProductsList(categoriesCollectionView_xpath, "Categories");
     }
 
+    public void getCategoriesCollectionListView() {
+        CategoriesCollectionListViewList = utils.getProductsList(categoriesCollectionListView_xpath, "Categories");
+    }
 
-    public void getTableMenuList(int tableNumber) {
+    public void getMenuListGridView() {
+        MenuListGridViewList = utils.getProductsList(menuListGridView_xpath, "products from the menu");
+    }
+
+    public void getMenuListListView() {
+        MenuListListViewList = utils.getProductsList(menuListListView_xpath, "products from the menu");
+    }
+
+    public void getTableBillList() {
+        TableBillList = utils.getProductsList(billList_xpath, "products on the bill");
+    }
+
+    public void getFooterViewText() {
+        FooterViewText = Arrays.toString(utils.getProductsList(footerViewText_xpath, "price items"));
+    }
+
+    public void getTableGridViewMenuList(int tableNumber) {
         selectTable(tableNumber);
         utils.wait(3);
         checkTable(tableNumber);
+        setProductsGridView();
+        getCategoriesCollectionGridView();
+        selectCategoryFromGridView(0);
+        getMenuListGridView();
+        selectCategoryFromGridView(1);
+        getMenuListGridView();
+        selectCategoryFromGridView(2);
         getMenuListGridView();
         clickBackButton();
     }
 
-    public void orderFood(int foodIndex) {
+    public void getTableListViewMenuList(int tableNumber) {
+        selectTable(tableNumber);
+        utils.wait(3);
+        checkTable(tableNumber);
+        setProductsListView();
+        getCategoriesCollectionListView();
+        selectCategoryFromListView(0);
+        getMenuListListView();
+        clickBackButton();
+        selectCategoryFromListView(1);
+        getMenuListListView();
+        clickBackButton();
+        selectCategoryFromListView(2);
+        getMenuListListView();
+        clickBackButton();
+        clickBackButton();
+    }
+
+    public void orderFoodFromGridView(int foodIndex) {
         try {
             MobileElement food;
-            food = utils.getElementByAccessibilityId(arrMenu[foodIndex]);
+            String foodName;
+            foodName = MenuListGridViewList[foodIndex];
+            food = utils.getElementByAccessibilityId(foodName);
             food.click();
-            System.out.println("order " + arrMenu[foodIndex]);
+            System.out.println("order " + foodName);
         } catch (Exception exp) {
             System.out.println("\norder food ERROR " + exp.getCause());
             System.out.println("\norder food ERROR " + exp.getMessage());
         }
     }
 
-    public void getTableGridViewMenuList(int tableNumber) {
-        utils.wait(10);
-        selectTable(tableNumber);
-        utils.wait(3);
-        checkTable(tableNumber);
-        setProductsGridView();
-        getMenuListGridView();
-        clickBackButton();
+    public void orderFoodFromListView(int foodIndex) {
+        try {
+            MobileElement food;
+            String foodName;
+            foodName = MenuListListViewList[foodIndex];
+            food = utils.getElementByAccessibilityId(foodName);
+            food.click();
+            System.out.println("order " + foodName);
+        } catch (Exception exp) {
+            System.out.println("\norder food ERROR " + exp.getCause());
+            System.out.println("\norder food ERROR " + exp.getMessage());
+        }
     }
 
-    public void getTableListViewMenuList(int tableNumber) {
-        utils.wait(10);
-        selectTable(tableNumber);
-        utils.wait(3);
-        checkTable(tableNumber);
-        setProductsListView();
-        getMenuListListView();
-        clickBackButton();
+    public void selectCategoryFromListView(int categoryIndex) {
+        try {
+            MobileElement category;
+            String categoryName;
+            categoryName = CategoriesCollectionListViewList[categoryIndex];
+            category = utils.getElementByAccessibilityId(categoryName);
+            category.click();
+            System.out.println("select category " + categoryName);
+        } catch (Exception exp) {
+            System.out.println("\nselect category ERROR " + exp.getCause());
+            System.out.println("\nselect category ERROR " + exp.getMessage());
+        }
+    }
+
+    public void selectCategoryFromGridView(int categoryIndex) {
+        try {
+            MobileElement category;
+            String categoryName;
+            categoryName = CategoriesCollectionGridViewList[categoryIndex];
+            category = utils.getElementByAccessibilityId(categoryName);
+            category.click();
+            System.out.println("select category " + categoryName);
+        } catch (Exception exp) {
+            System.out.println("\nselect category ERROR " + exp.getCause());
+            System.out.println("\nselect category ERROR " + exp.getMessage());
+        }
     }
 
     public void setProductsGridView() {

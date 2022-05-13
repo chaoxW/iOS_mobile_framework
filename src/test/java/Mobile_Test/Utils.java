@@ -6,6 +6,7 @@ import Config.iPadBrowserstackDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,8 @@ public class Utils {
     iPadSimulatorDriver iPadSimulatorDriver = new iPadSimulatorDriver();
 
     iPadBrowserstackDriver iPadBrowserstackDriver = new iPadBrowserstackDriver();
+
+    public String[] arrItems;
 
     public IOSDriver iPadSetup(){
         driver = iPadDriver.iPadSetup();
@@ -105,6 +108,28 @@ public class Utils {
             }
             i++;
         }while(i<=3);
+    }
+
+    public String[] getProductsList(String XPATH, String Products) {
+        try {
+            List<MobileElement> productList;
+            productList = (List) getElementsByXpath(XPATH);
+            this.arrItems = new String[productList.size()];
+            System.out.println("There are " + productList.size() + " " + Products);
+            int itemIndex = 0;
+            for (MobileElement product : productList) {
+                String productName = product.getText();
+//                System.out.println("There is " + productName);
+                this.arrItems[itemIndex] = productName;
+                itemIndex++;
+            }
+            System.out.println(Products + " there are " + Arrays.toString(arrItems));
+            return this.arrItems;
+        } catch (Exception e) {
+            System.out.println("\n" + Products +" list ERROR " + e.getCause());
+            System.out.println("\n" + Products +" list ERROR " + e.getMessage());
+        }
+        return null;
     }
 
     public void hideKeyboard(){

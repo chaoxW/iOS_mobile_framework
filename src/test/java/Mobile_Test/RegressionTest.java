@@ -39,11 +39,14 @@ public class RegressionTest extends RegressionClass {
     @Test(priority=4)
     public void GridViewOrderAndBackTest() throws Exception {
         utils.testStartLog("GridViewOrderAndBackTest");
-        getTableGridViewMenuList(1);
-        HomepageValidation();
+        clearSelectTable(1);
         selectTable(1);
         checkTable(1);
-        orderFood(0);
+        setProductsGridView();
+        getCategoriesCollectionGridView();
+        selectCategoryFromGridView(0);
+        getMenuListGridView();
+        orderFoodFromGridView(0);
         clickBackButton();
         clickYesButton();
         HomepageValidation();
@@ -58,10 +61,15 @@ public class RegressionTest extends RegressionClass {
     @Test(priority=5)
     public void ListViewOrderAndBackTest() throws Exception {
         utils.testStartLog("ListViewOrderAndBackTest");
-        getTableListViewMenuList(1);
+        clearSelectTable(1);
         selectTable(1);
         checkTable(1);
-        orderFood(1);
+        setProductsListView();
+        getCategoriesCollectionListView();
+        selectCategoryFromListView(0);
+        getMenuListListView();
+        orderFoodFromListView(1);
+        clickBackButton();
         clickBackButton();
         clickYesButton();
         HomepageValidation();
@@ -78,12 +86,13 @@ public class RegressionTest extends RegressionClass {
         utils.testStartLog("GridViewOrderTest");
         clearSelectTable(1);
         HomepageValidation();
-        getTableGridViewMenuList(1);
-        HomepageValidation();
         selectTable(1);
-        orderFood(0);
-        orderFood(1);
-        orderFood(2);
+        checkTable(1);
+        setProductsGridView();
+        getCategoriesCollectionGridView();
+        selectCategoryFromGridView(0);
+        getMenuListGridView();
+        orderFoodFromGridView(0);
         clickAddToTableButton();
         HomepageValidation();
         selectTable(1);
@@ -99,14 +108,13 @@ public class RegressionTest extends RegressionClass {
         utils.testStartLog("ListViewOrderTest");
         clearSelectTable(1);
         HomepageValidation();
-        getTableListViewMenuList(1);
-        HomepageValidation();
         selectTable(1);
-        orderFood(0);
-        orderFood(1);
-        orderFood(2);
-        orderFood(4);
-        orderFood(5);
+        checkTable(1);
+        setProductsListView();
+        getCategoriesCollectionListView();
+        selectCategoryFromListView(0);
+        getMenuListListView();
+        orderFoodFromListView(1);
         clickAddToTableButton();
         HomepageValidation();
         selectTable(1);
